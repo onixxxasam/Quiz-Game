@@ -1,0 +1,50 @@
+const quiz = [
+    {
+        question: '日本の首都はどれですか？',
+        answer: ['東京都', '京都府', '大阪府', '愛知県'],
+        correct: '東京都'
+    },
+    {
+        question: '有名な小説「ハリーポッター」シリーズの作者は誰ですか？',
+        answer: ['J.K.ローリング', 'J.R.R.トールキン', 'ジョージ・R・R・マーティン', 'ダン・ブラウン'],
+        correct: 'J.K.ローリング'
+    },
+    {
+        question: '世界で最も標高が高い山はどれですか？',
+        answer: ['エベレスト', 'キリマンジャロ', 'デナリ', 'アコンカグア'],
+        correct: 'エベレスト'
+    },
+];
+const $question = document.getElementById('js-question');
+const $btn = document.getElementsByTagName('button');
+
+let quizIndex = 0;
+let point = 0;
+
+const setupQuiz = () => {
+    $question.textContent = quiz[quizIndex].question;
+    for (let i = 0; i < $btn.length; i++) {
+        $btn[i].textContent = quiz[quizIndex].answer[i];
+    }
+}
+setupQuiz();
+
+const btnClick = (e) => {
+    for (let i = 0; i < $btn.length; i++) {
+        $btn[i].addEventListener('click', (e) => {
+            if (quiz[quizIndex].correct === e.target.textContent) {
+                window.alert('正解です');
+                point++;
+            } else {
+                window.alert('不正解です');
+            }
+            quizIndex++;
+            if(quizIndex < quiz.length) {
+                setupQuiz();
+            } else {
+                window.alert(`クイズは終了です！あなたは${quiz.length}問中${point}問が正解でした`);
+            }
+        });
+    }
+}
+btnClick();
